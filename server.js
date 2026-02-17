@@ -668,7 +668,7 @@ app.get('/manage', (req, res) => {
 
   const connection = pluginConnections.get(uuid);
   const isSpotifyConnected = !!(connection?.spotify?.access_token);
-  const currentMode = connection?.settings?.displayMode || 'now_playing';
+  const currentMode = connection?.settings?.displayMode || 'top_tracks';
   const currentTimeRange = connection?.settings?.timeRange || 'short_term';
   const spotifyStatus = req.query.spotify;
   const saved = req.query.saved === 'true';
@@ -801,7 +801,7 @@ app.post('/manage/save', (req, res) => {
   if (connection) {
     connection.settings = {
       ...connection.settings,
-      displayMode: displayMode || 'now_playing',
+      displayMode: displayMode || 'top_tracks',
       timeRange: timeRange || 'short_term'
     };
     pluginConnections.set(uuid, connection);
@@ -819,7 +819,7 @@ app.post('/markup', async (req, res) => {
 
   try {
     const connection = pluginConnections.get(user_uuid);
-    const displayMode = connection?.settings?.displayMode || 'now_playing';
+    const displayMode = connection?.settings?.displayMode || 'top_tracks';
     const data = await getSpotifyData(user_uuid, displayMode);
 
     const response = {

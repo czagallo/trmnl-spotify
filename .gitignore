@@ -3,4 +3,5 @@ node_modules/
 .DS_Store
 *.log
 CLAUDE.md
+AGENTS.md
 .claude/
