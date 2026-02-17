@@ -425,7 +425,7 @@ function exchangeTrmnlCode(code) {
     });
 
     const req = https.request({
-      hostname: 'usetrmnl.com',
+      hostname: 'trmnl.com',
       port: 443,
       path: '/oauth/token',
       method: 'POST',
@@ -763,16 +763,16 @@ app.get('/manage', (req, res) => {
             <div style="margin-top: 25px;">
               <button type="submit" class="btn btn-save">Save Settings</button>
               ${connection && connection.plugin_setting_id ?
-                `<a href="https://usetrmnl.com/plugin_settings/${connection.plugin_setting_id}/edit?force_refresh=true" class="btn btn-secondary">Back to TRMNL</a>` :
-                `<a href="https://usetrmnl.com" class="btn btn-secondary">Back to TRMNL</a>`
+                `<a href="https://trmnl.com/plugin_settings/${connection.plugin_setting_id}/edit?force_refresh=true" class="btn btn-secondary">Back to TRMNL</a>` :
+                `<a href="https://trmnl.com" class="btn btn-secondary">Back to TRMNL</a>`
               }
             </div>
           </form>
         ` : `
           <div style="margin-top: 25px;">
             ${connection && connection.plugin_setting_id ?
-              `<a href="https://usetrmnl.com/plugin_settings/${connection.plugin_setting_id}/edit?force_refresh=true" class="btn btn-secondary">Back to TRMNL</a>` :
-              `<a href="https://usetrmnl.com" class="btn btn-secondary">Back to TRMNL</a>`
+              `<a href="https://trmnl.com/plugin_settings/${connection.plugin_setting_id}/edit?force_refresh=true" class="btn btn-secondary">Back to TRMNL</a>` :
+              `<a href="https://trmnl.com" class="btn btn-secondary">Back to TRMNL</a>`
             }
           </div>
         `}
