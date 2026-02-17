@@ -438,6 +438,8 @@ function exchangeTrmnlCode(code) {
       res.on('data', (chunk) => { data += chunk; });
       res.on('end', () => {
         try {
+          console.log('TRMNL OAuth response status:', res.statusCode);
+          console.log('TRMNL OAuth response body:', data);
           const response = JSON.parse(data);
           if (response.access_token) {
             resolve(response.access_token);
