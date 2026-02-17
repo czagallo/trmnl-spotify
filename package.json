@@ -1,7 +1,7 @@
 {
   "name": "trmnl-spotify",
   "version": "1.0.0",
-  "description": "TRMNL plugin that displays your Spotify listening activity",
+  "description": "TRMNL plugin that displays your Spotify listening stats",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

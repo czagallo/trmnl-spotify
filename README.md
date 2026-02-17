@@ -1,13 +1,13 @@
 # TRMNL Spotify Plugin
 
-A [TRMNL](https://usetrmnl.com) marketplace plugin that displays your Spotify listening activity on your e-ink display.
+A [TRMNL](https://usetrmnl.com) marketplace plugin that displays your Spotify listening stats on your e-ink display.
 
 ## Features
 
-- **Now Playing** - Shows your currently playing track with progress bar. Falls back to recently played when nothing is active.
-- **Recently Played** - Shows your last 5 tracks with relative timestamps.
-- **Top Tracks** - Shows your most listened tracks (configurable time range).
+- **Top Tracks** - Shows your most listened tracks (configurable time range: 4 weeks, 6 months, all time).
 - **Top Artists** - Shows your most listened artists with genres.
+- **Recently Played** - Shows your last 5 tracks with relative timestamps.
+- **Now Playing** - Shows your currently playing track with progress bar (may be outdated between 15-min refreshes).
 - All 4 TRMNL layout sizes supported (full, half vertical, half horizontal, quadrant).
 
 ## Screenshots

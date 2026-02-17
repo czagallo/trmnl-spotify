@@ -480,7 +480,7 @@ app.post('/webhooks/install-success', (req, res) => {
     user_data: user,
     spotify: null,
     settings: {
-      displayMode: 'now_playing',
+      displayMode: 'top_tracks',
       timeRange: 'short_term'
     }
   });
@@ -715,7 +715,7 @@ app.get('/manage', (req, res) => {
     </head>
     <body>
       <div class="card">
-        <h1>Spotify Now Playing</h1>
+        <h1>Spotify Listening Stats</h1>
 
         ${saved ? '<div class="success">Settings saved successfully.</div>' : ''}
         ${spotifyStatus === 'connected' ? '<div class="success">Spotify connected successfully.</div>' : ''}
@@ -735,7 +735,7 @@ app.get('/manage', (req, res) => {
             <button type="submit" class="btn btn-danger">Disconnect Spotify</button>
           </form>
         ` : `
-          <p>Connect your Spotify account to display your listening activity on TRMNL.</p>
+          <p>Connect your Spotify account to display your listening stats on TRMNL.</p>
           <a href="/spotify/authorize?uuid=${uuid}" class="btn btn-spotify">Connect Spotify</a>
         `}
 
@@ -746,15 +746,15 @@ app.get('/manage', (req, res) => {
 
             <label for="displayMode">Display Mode:</label>
             <select name="displayMode" id="displayMode">
-              <option value="now_playing" ${currentMode === 'now_playing' ? 'selected' : ''}>Now Playing</option>
-              <option value="recently_played" ${currentMode === 'recently_played' ? 'selected' : ''}>Recently Played</option>
               <option value="top_tracks" ${currentMode === 'top_tracks' ? 'selected' : ''}>Top Tracks</option>
               <option value="top_artists" ${currentMode === 'top_artists' ? 'selected' : ''}>Top Artists</option>
+              <option value="recently_played" ${currentMode === 'recently_played' ? 'selected' : ''}>Recently Played</option>
+              <option value="now_playing" ${currentMode === 'now_playing' ? 'selected' : ''}>Now Playing</option>
             </select>
             <div class="desc">
-              <strong>Now Playing</strong> shows your current track (falls back to recently played).<br>
+              <strong>Top Tracks / Artists</strong> shows your most listened content (recommended).<br>
               <strong>Recently Played</strong> shows your last 5 tracks.<br>
-              <strong>Top Tracks / Artists</strong> shows your most listened content.
+              <strong>Now Playing</strong> shows your current track (may be outdated between refreshes).
             </div>
 
             <label for="timeRange">Top Content Time Range:</label>
