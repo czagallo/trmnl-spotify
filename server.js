@@ -652,6 +652,11 @@ function renderErrorPage(message) {
   `;
 }
 
+// TRMNL sends users to /webhooks/manage with uuid and jwt params
+app.get('/webhooks/manage', (req, res) => {
+  res.redirect(`/manage?${new URLSearchParams(req.query).toString()}`);
+});
+
 app.get('/manage', (req, res) => {
   const { uuid } = req.query;
 
