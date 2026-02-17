@@ -912,12 +912,12 @@ function renderNowPlayingFull(data) {
 function renderRecentlyPlayedFull(data) {
   const subtitle = data.fallback ? 'Nothing playing right now' : 'Recently Played';
   const trackList = (data.tracks || []).slice(0, 5).map(t => `
-    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #E5E5E5;">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px solid #E5E5E5;">
       <div style="flex: 1; overflow: hidden;">
-        <div style="font-size: 22px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${truncate(t.track, 35)}</div>
-        <div style="font-size: 16px; opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${truncate(t.artist, 40)}</div>
+        <div style="font-size: 26px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;">${truncate(t.track, 30)}</div>
+        <div style="font-size: 17px; font-weight: 400; opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;">${truncate(t.artist, 40)}</div>
       </div>
-      ${t.played_at ? `<div style="font-size: 14px; opacity: 0.4; white-space: nowrap; padding-left: 10px;">${timeAgo(t.played_at)}</div>` : ''}
+      ${t.played_at ? `<div style="font-size: 15px; font-weight: 400; opacity: 0.35; white-space: nowrap; padding-left: 14px;">${timeAgo(t.played_at)}</div>` : ''}
     </div>
   `).join('');
 
@@ -925,14 +925,11 @@ function renderRecentlyPlayedFull(data) {
     <div class="view view--full">
       <div class="layout">
         <div class="markdown" style="padding: 20px 30px; height: 100%; display: flex; flex-direction: column;">
-          <div style="font-size: 16px; opacity: 0.5; margin-bottom: 12px;">${subtitle}</div>
+          <div style="font-size: 18px; font-weight: 400; opacity: 0.5; margin-bottom: 16px;">${subtitle}</div>
           <div style="flex: 1; overflow: hidden;">
-            ${trackList || '<div style="font-size: 20px; opacity: 0.5;">No recent tracks found.</div>'}
+            ${trackList || '<div style="font-size: 24px; opacity: 0.5; margin-top: 40px; text-align: center;">No recent tracks found.</div>'}
           </div>
         </div>
-      </div>
-      <div class="title_bar">
-        <span class="title">Spotify</span>
       </div>
     </div>
   `.trim();
@@ -941,11 +938,11 @@ function renderRecentlyPlayedFull(data) {
 function renderTopTracksFull(data, connection) {
   const range = timeRangeLabel(connection?.settings?.timeRange);
   const trackList = (data.tracks || []).map(t => `
-    <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid #E5E5E5; gap: 14px;">
-      <div style="font-size: 28px; font-weight: 700; opacity: 0.3; min-width: 36px; text-align: right;">${t.rank}</div>
+    <div style="display: flex; align-items: baseline; padding: 12px 0; border-bottom: 1px solid #E5E5E5; gap: 16px;">
+      <div style="font-size: 36px; font-weight: 700; opacity: 0.25; min-width: 44px; text-align: right; line-height: 1;">${t.rank}</div>
       <div style="flex: 1; overflow: hidden;">
-        <div style="font-size: 22px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${truncate(t.track, 35)}</div>
-        <div style="font-size: 16px; opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${truncate(t.artist, 40)}</div>
+        <div style="font-size: 28px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;">${truncate(t.track, 30)}</div>
+        <div style="font-size: 18px; font-weight: 400; opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;">${truncate(t.artist, 40)}</div>
       </div>
     </div>
   `).join('');
@@ -954,14 +951,11 @@ function renderTopTracksFull(data, connection) {
     <div class="view view--full">
       <div class="layout">
         <div class="markdown" style="padding: 20px 30px; height: 100%; display: flex; flex-direction: column;">
-          <div style="font-size: 16px; opacity: 0.5; margin-bottom: 12px;">Top Tracks &middot; ${range}</div>
+          <div style="font-size: 18px; font-weight: 400; opacity: 0.5; margin-bottom: 16px;">Top Tracks &middot; ${range}</div>
           <div style="flex: 1; overflow: hidden;">
-            ${trackList || '<div style="font-size: 20px; opacity: 0.5;">No data yet. Keep listening!</div>'}
+            ${trackList || '<div style="font-size: 24px; opacity: 0.5; margin-top: 40px; text-align: center;">No data yet. Keep listening!</div>'}
           </div>
         </div>
-      </div>
-      <div class="title_bar">
-        <span class="title">Spotify</span>
       </div>
     </div>
   `.trim();
@@ -970,11 +964,11 @@ function renderTopTracksFull(data, connection) {
 function renderTopArtistsFull(data, connection) {
   const range = timeRangeLabel(connection?.settings?.timeRange);
   const artistList = (data.artists || []).map(a => `
-    <div style="display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #E5E5E5; gap: 14px;">
-      <div style="font-size: 28px; font-weight: 700; opacity: 0.3; min-width: 36px; text-align: right;">${a.rank}</div>
+    <div style="display: flex; align-items: baseline; padding: 14px 0; border-bottom: 1px solid #E5E5E5; gap: 16px;">
+      <div style="font-size: 36px; font-weight: 700; opacity: 0.25; min-width: 44px; text-align: right; line-height: 1;">${a.rank}</div>
       <div style="flex: 1; overflow: hidden;">
-        <div style="font-size: 24px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${truncate(a.name, 35)}</div>
-        ${a.genres ? `<div style="font-size: 15px; opacity: 0.5;">${a.genres}</div>` : ''}
+        <div style="font-size: 30px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;">${truncate(a.name, 30)}</div>
+        ${a.genres ? `<div style="font-size: 16px; font-weight: 400; opacity: 0.45; margin-top: 2px;">${a.genres}</div>` : ''}
       </div>
     </div>
   `).join('');
@@ -983,14 +977,11 @@ function renderTopArtistsFull(data, connection) {
     <div class="view view--full">
       <div class="layout">
         <div class="markdown" style="padding: 20px 30px; height: 100%; display: flex; flex-direction: column;">
-          <div style="font-size: 16px; opacity: 0.5; margin-bottom: 12px;">Top Artists &middot; ${range}</div>
+          <div style="font-size: 18px; font-weight: 400; opacity: 0.5; margin-bottom: 16px;">Top Artists &middot; ${range}</div>
           <div style="flex: 1; overflow: hidden;">
-            ${artistList || '<div style="font-size: 20px; opacity: 0.5;">No data yet. Keep listening!</div>'}
+            ${artistList || '<div style="font-size: 24px; opacity: 0.5; margin-top: 40px; text-align: center;">No data yet. Keep listening!</div>'}
           </div>
         </div>
-      </div>
-      <div class="title_bar">
-        <span class="title">Spotify</span>
       </div>
     </div>
   `.trim();
@@ -1020,14 +1011,17 @@ function generateHalfVerticalMarkup(data, connection) {
     `.trim();
   }
 
-  // For list modes, show first 3 items
+  // For list modes, show items with rank numbers
   const items = data.tracks || data.artists || [];
-  const listHtml = items.slice(0, 3).map((item, i) => {
+  const listHtml = items.slice(0, 4).map((item, i) => {
     const name = item.track || item.name;
     const sub = item.artist || item.genres || '';
-    return `<div style="text-align: center; margin: 6px 0;">
-      <div style="font-size: 20px; font-weight: 600; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${truncate(name, 20)}</div>
-      <div style="font-size: 14px; opacity: 0.5;">${truncate(sub, 24)}</div>
+    return `<div style="display: flex; align-items: baseline; gap: 10px; padding: 6px 0; border-bottom: 1px solid #E5E5E5;">
+      <div style="font-size: 24px; font-weight: 700; opacity: 0.25; min-width: 28px; text-align: right; line-height: 1;">${i + 1}</div>
+      <div style="flex: 1; overflow: hidden;">
+        <div style="font-size: 20px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;">${truncate(name, 18)}</div>
+        <div style="font-size: 13px; font-weight: 400; opacity: 0.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${truncate(sub, 22)}</div>
+      </div>
     </div>`;
   }).join('');
 
@@ -1039,9 +1033,11 @@ function generateHalfVerticalMarkup(data, connection) {
     <div class="view view--half_vertical">
       <div class="layout">
         <div class="title_bar"><div class="title">Spotify</div></div>
-        <div class="markdown" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 0 15px;">
-          <div style="font-size: 14px; opacity: 0.4; margin-bottom: 10px;">${modeLabel}</div>
-          ${listHtml}
+        <div class="markdown" style="display: flex; flex-direction: column; height: 100%; padding: 10px 15px;">
+          <div style="font-size: 13px; font-weight: 400; opacity: 0.4; margin-bottom: 8px;">${modeLabel}</div>
+          <div style="flex: 1; overflow: hidden;">
+            ${listHtml}
+          </div>
         </div>
       </div>
     </div>
@@ -1071,22 +1067,24 @@ function generateHalfHorizontalMarkup(data, connection) {
     `.trim();
   }
 
-  // For list modes, show first 2 items inline
+  // For list modes, show top 3 side by side
   const items = data.tracks || data.artists || [];
-  const first = items[0];
-  const name = first ? (first.track || first.name) : 'No data';
-  const sub = first ? (first.artist || first.genres || '') : '';
+  const columnsHtml = items.slice(0, 3).map((item, i) => {
+    const name = item.track || item.name;
+    const sub = item.artist || item.genres || '';
+    return `<div style="flex: 1; overflow: hidden; text-align: center; padding: 0 8px; ${i < 2 ? 'border-right: 1px solid #E5E5E5;' : ''}">
+      <div style="font-size: 28px; font-weight: 700; opacity: 0.25; line-height: 1; margin-bottom: 6px;">${i + 1}</div>
+      <div style="font-size: 18px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;">${truncate(name, 20)}</div>
+      <div style="font-size: 13px; font-weight: 400; opacity: 0.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;">${truncate(sub, 22)}</div>
+    </div>`;
+  }).join('');
 
   return `
     <div class="view view--half_horizontal">
       <div class="layout">
         <div class="title_bar"><div class="title">Spotify</div></div>
-        <div class="markdown" style="display: flex; align-items: center; justify-content: center; height: 100%; gap: 20px; padding: 0 20px;">
-          ${musicNoteSvg(60)}
-          <div style="overflow: hidden;">
-            <div style="font-size: 28px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${truncate(name, 25)}</div>
-            <div style="font-size: 18px; opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${truncate(sub, 30)}</div>
-          </div>
+        <div class="markdown" style="display: flex; align-items: center; justify-content: center; height: 100%; padding: 0 15px; gap: 0;">
+          ${columnsHtml}
         </div>
       </div>
     </div>
@@ -1114,15 +1112,19 @@ function generateQuadrantMarkup(data, connection) {
   }
 
   const items = data.tracks || data.artists || [];
-  const first = items[0];
-  const name = first ? (first.track || first.name) : 'Spotify';
+  const listHtml = items.slice(0, 3).map((item, i) => {
+    const name = item.track || item.name;
+    return `<div style="display: flex; align-items: baseline; gap: 6px; padding: 3px 0;">
+      <div style="font-size: 14px; font-weight: 700; opacity: 0.3; min-width: 16px; text-align: right; line-height: 1;">${i + 1}</div>
+      <div style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;">${truncate(name, 22)}</div>
+    </div>`;
+  }).join('');
 
   return `
     <div class="view view--quadrant">
       <div class="layout">
-        <div class="markdown" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 0 10px;">
-          ${musicNoteSvg(28)}
-          <div style="font-size: 14px; font-weight: 600; margin-top: 6px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 100%;">${truncate(name, 16)}</div>
+        <div class="markdown" style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding: 8px 12px;">
+          ${listHtml}
         </div>
       </div>
     </div>
