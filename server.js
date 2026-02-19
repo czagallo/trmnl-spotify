@@ -1015,7 +1015,7 @@ function generateHalfVerticalMarkup(data, connection) {
 
   // For list modes, show items with rank numbers
   const items = data.tracks || data.artists || [];
-  const listHtml = items.slice(0, 4).map((item, i) => {
+  const listHtml = items.slice(0, 5).map((item, i) => {
     const name = item.track || item.name;
     const sub = item.artist || item.genres || '';
     return `<div style="display: flex; align-items: baseline; gap: 10px; padding: 6px 0; border-bottom: 1px solid #E5E5E5;">
