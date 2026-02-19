@@ -998,8 +998,8 @@ function generateHalfVerticalMarkup(data, connection) {
   if (data.mode === 'now_playing') {
     return `
       <div class="view view--half_vertical">
-        <div class="layout">
-          <div class="markdown" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 0 20px;">
+        <div class="layout layout--col layout--stretch">
+          <div class="markdown w--full" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 0 20px;">
             ${playStatusSvg(data.is_playing, 28)}
             <div style="font-size: 30px; font-weight: 700; margin-top: 12px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 100%;">${truncate(data.track, 22)}</div>
             <div style="font-size: 20px; opacity: 0.6; margin-top: 6px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 100%;">${truncate(data.artist, 28)}</div>
@@ -1033,8 +1033,8 @@ function generateHalfVerticalMarkup(data, connection) {
 
   return `
     <div class="view view--half_vertical">
-      <div class="layout">
-        <div class="markdown" style="display: flex; flex-direction: column; height: 100%; padding: 10px 15px;">
+      <div class="layout layout--col layout--stretch">
+        <div class="markdown w--full" style="display: flex; flex-direction: column; height: 100%; padding: 10px 15px;">
           <div style="font-size: 13px; font-weight: 400; opacity: 0.4; margin-bottom: 8px;">${modeLabel}</div>
           <div style="flex: 1; overflow: hidden;">
             ${listHtml}
@@ -1055,8 +1055,8 @@ function generateHalfHorizontalMarkup(data, connection) {
   if (data.mode === 'now_playing') {
     return `
       <div class="view view--half_horizontal">
-        <div class="layout">
-          <div class="markdown" style="display: flex; align-items: center; justify-content: center; height: 100%; gap: 20px; padding: 0 20px;">
+        <div class="layout layout--row layout--stretch">
+          <div class="markdown w--full" style="display: flex; align-items: center; justify-content: center; height: 100%; gap: 20px; padding: 0 20px;">
             ${musicNoteSvg(60)}
             <div style="overflow: hidden;">
               <div style="font-size: 28px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${truncate(data.track, 25)}</div>
@@ -1083,8 +1083,8 @@ function generateHalfHorizontalMarkup(data, connection) {
 
   return `
     <div class="view view--half_horizontal">
-      <div class="layout">
-        <div class="markdown" style="display: flex; align-items: center; justify-content: center; height: 100%; padding: 0 15px; gap: 0;">
+      <div class="layout layout--row layout--stretch">
+        <div class="markdown w--full" style="display: flex; align-items: center; justify-content: center; height: 100%; padding: 0 15px; gap: 0;">
           ${columnsHtml}
         </div>
       </div>
