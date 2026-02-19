@@ -999,7 +999,6 @@ function generateHalfVerticalMarkup(data, connection) {
     return `
       <div class="view view--half_vertical">
         <div class="layout">
-          <div class="title_bar"><div class="title">Spotify</div></div>
           <div class="markdown" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 0 20px;">
             ${playStatusSvg(data.is_playing, 28)}
             <div style="font-size: 30px; font-weight: 700; margin-top: 12px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 100%;">${truncate(data.track, 22)}</div>
@@ -1009,6 +1008,7 @@ function generateHalfVerticalMarkup(data, connection) {
             </div>
           </div>
         </div>
+        <div class="title_bar"><span class="title">Spotify</span></div>
       </div>
     `.trim();
   }
@@ -1034,7 +1034,6 @@ function generateHalfVerticalMarkup(data, connection) {
   return `
     <div class="view view--half_vertical">
       <div class="layout">
-        <div class="title_bar"><div class="title">Spotify</div></div>
         <div class="markdown" style="display: flex; flex-direction: column; height: 100%; padding: 10px 15px;">
           <div style="font-size: 13px; font-weight: 400; opacity: 0.4; margin-bottom: 8px;">${modeLabel}</div>
           <div style="flex: 1; overflow: hidden;">
@@ -1042,6 +1041,7 @@ function generateHalfVerticalMarkup(data, connection) {
           </div>
         </div>
       </div>
+      <div class="title_bar"><span class="title">Spotify</span></div>
     </div>
   `.trim();
 }
@@ -1056,7 +1056,6 @@ function generateHalfHorizontalMarkup(data, connection) {
     return `
       <div class="view view--half_horizontal">
         <div class="layout">
-          <div class="title_bar"><div class="title">Spotify</div></div>
           <div class="markdown" style="display: flex; align-items: center; justify-content: center; height: 100%; gap: 20px; padding: 0 20px;">
             ${musicNoteSvg(60)}
             <div style="overflow: hidden;">
@@ -1065,6 +1064,7 @@ function generateHalfHorizontalMarkup(data, connection) {
             </div>
           </div>
         </div>
+        <div class="title_bar"><span class="title">Spotify</span></div>
       </div>
     `.trim();
   }
@@ -1084,11 +1084,11 @@ function generateHalfHorizontalMarkup(data, connection) {
   return `
     <div class="view view--half_horizontal">
       <div class="layout">
-        <div class="title_bar"><div class="title">Spotify</div></div>
         <div class="markdown" style="display: flex; align-items: center; justify-content: center; height: 100%; padding: 0 15px; gap: 0;">
           ${columnsHtml}
         </div>
       </div>
+      <div class="title_bar"><span class="title">Spotify</span></div>
     </div>
   `.trim();
 }
@@ -1103,7 +1103,7 @@ function generateQuadrantMarkup(data, connection) {
     return `
       <div class="view view--quadrant">
         <div class="layout">
-          <div class="markdown" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 0 10px;">
+          <div class="markdown w--full" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 0 10px;">
             ${playStatusSvg(data.is_playing, 20)}
             <div style="font-size: 16px; font-weight: 700; margin-top: 6px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 100%;">${truncate(data.track, 18)}</div>
             <div style="font-size: 12px; opacity: 0.6; margin-top: 2px;">${truncate(data.artist, 20)}</div>
@@ -1125,7 +1125,7 @@ function generateQuadrantMarkup(data, connection) {
   return `
     <div class="view view--quadrant">
       <div class="layout">
-        <div class="markdown" style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding: 8px 12px;">
+        <div class="markdown w--full" style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding: 8px 12px;">
           ${listHtml}
         </div>
       </div>
@@ -1144,7 +1144,7 @@ function renderConnectPrompt(layout) {
     return `
       <div class="view ${viewClass}">
         <div class="layout">
-          <div class="markdown" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
+          <div class="markdown w--full" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
             ${musicNoteSvg(28)}
             <div style="font-size: 12px; opacity: 0.5; margin-top: 6px;">Connect Spotify</div>
           </div>
