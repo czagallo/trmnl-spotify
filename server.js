@@ -910,7 +910,7 @@ function renderRecentlyPlayedFull(data) {
     return `<div class="item">
         <div class="meta"></div>
         <div class="content">
-          <span class="title title--small">${truncate(t.track, 30)}</span>
+          <span class="title title--small lg:title--base">${truncate(t.track, 30)}</span>
           <div class="flex gap--xsmall">
             <span class="label label--small">${truncate(t.artist, 40)}</span>
             ${timeLabel}
@@ -921,10 +921,12 @@ function renderRecentlyPlayedFull(data) {
 
   return `
     <div class="view view--full">
-      <div class="layout layout--col layout--stretch">
-        <span class="label label--small">${subtitle}</span>
-        <div class="w--full" data-overflow="true">
-          ${trackList || '<span class="description">No recent tracks found.</span>'}
+      <div class="layout layout--col layout--stretch gap">
+        <div class="columns">
+          <div class="column" data-overflow="true" data-overflow-counter="true">
+            <span class="label label--medium lg:label--base group-header">${subtitle}</span>
+            ${trackList || '<span class="description">No recent tracks found.</span>'}
+          </div>
         </div>
       </div>
       <div class="title_bar"><span class="title">Spotify</span></div>
@@ -938,17 +940,19 @@ function renderTopTracksFull(data, connection) {
       <div class="item">
         <div class="meta"><span class="index">${t.rank}</span></div>
         <div class="content">
-          <span class="title title--small">${truncate(t.track, 30)}</span>
+          <span class="title title--small lg:title--base">${truncate(t.track, 30)}</span>
           <span class="label label--small">${truncate(t.artist, 40)}</span>
         </div>
       </div>`).join('');
 
   return `
     <div class="view view--full">
-      <div class="layout layout--col layout--stretch">
-        <span class="label label--small">Top Tracks &middot; ${range}</span>
-        <div class="w--full" data-overflow="true">
-          ${trackList || '<span class="description">No data yet. Keep listening!</span>'}
+      <div class="layout layout--col layout--stretch gap">
+        <div class="columns">
+          <div class="column" data-overflow="true" data-overflow-counter="true">
+            <span class="label label--medium lg:label--base group-header">Top Tracks &middot; ${range}</span>
+            ${trackList || '<span class="description">No data yet. Keep listening!</span>'}
+          </div>
         </div>
       </div>
       <div class="title_bar"><span class="title">Spotify</span></div>
@@ -962,17 +966,19 @@ function renderTopArtistsFull(data, connection) {
       <div class="item">
         <div class="meta"><span class="index">${a.rank}</span></div>
         <div class="content">
-          <span class="title title--small">${truncate(a.name, 30)}</span>
+          <span class="title title--small lg:title--base">${truncate(a.name, 30)}</span>
           ${a.genres ? `<span class="label label--small">${a.genres}</span>` : ''}
         </div>
       </div>`).join('');
 
   return `
     <div class="view view--full">
-      <div class="layout layout--col layout--stretch">
-        <span class="label label--small">Top Artists &middot; ${range}</span>
-        <div class="w--full" data-overflow="true">
-          ${artistList || '<span class="description">No data yet. Keep listening!</span>'}
+      <div class="layout layout--col layout--stretch gap">
+        <div class="columns">
+          <div class="column" data-overflow="true" data-overflow-counter="true">
+            <span class="label label--medium lg:label--base group-header">Top Artists &middot; ${range}</span>
+            ${artistList || '<span class="description">No data yet. Keep listening!</span>'}
+          </div>
         </div>
       </div>
       <div class="title_bar"><span class="title">Spotify</span></div>
@@ -1014,7 +1020,7 @@ function generateHalfVerticalMarkup(data, connection) {
     return `<div class="item">
         <div class="meta"><span class="index">${i + 1}</span></div>
         <div class="content">
-          <span class="title title--small">${truncate(name, 22)}</span>
+          <span class="title title--small lg:title--base">${truncate(name, 22)}</span>
           <span class="label label--small">${truncate(sub, 28)}</span>
         </div>
       </div>`;
@@ -1026,9 +1032,9 @@ function generateHalfVerticalMarkup(data, connection) {
 
   return `
     <div class="view view--half_vertical">
-      <div class="layout layout--col layout--stretch">
-        <span class="label label--small">${modeLabel}</span>
-        <div class="w--full" data-overflow="true">
+      <div class="layout layout--col layout--stretch gap">
+        <div class="flex flex--col gap stretch-y" data-overflow="true" data-overflow-counter="true">
+          <span class="label label--medium lg:label--base group-header">${modeLabel}</span>
           ${listHtml}
         </div>
       </div>
@@ -1066,7 +1072,7 @@ function generateHalfHorizontalMarkup(data, connection) {
     return `<div class="item">
         <div class="meta"><span class="index">${i + 1}</span></div>
         <div class="content">
-          <span class="title title--small">${truncate(name, 25)}</span>
+          <span class="title title--small lg:title--base">${truncate(name, 25)}</span>
           <span class="label label--small">${truncate(sub, 30)}</span>
         </div>
       </div>`;
@@ -1078,10 +1084,12 @@ function generateHalfHorizontalMarkup(data, connection) {
 
   return `
     <div class="view view--half_horizontal">
-      <div class="layout layout--col layout--stretch">
-        <span class="label label--small">${modeLabel}</span>
-        <div class="w--full" data-overflow="true">
-          ${listHtml}
+      <div class="layout layout--col layout--stretch gap">
+        <div class="columns">
+          <div class="column" data-overflow="true" data-overflow-counter="true">
+            <span class="label label--medium lg:label--base group-header">${modeLabel}</span>
+            ${listHtml}
+          </div>
         </div>
       </div>
       <div class="title_bar"><span class="title">Spotify</span></div>
@@ -1120,9 +1128,11 @@ function generateQuadrantMarkup(data, connection) {
 
   return `
     <div class="view view--quadrant">
-      <div class="layout layout--col layout--stretch">
-        <div class="w--full" data-overflow="true">
-          ${listHtml}
+      <div class="layout layout--col layout--stretch gap">
+        <div class="columns">
+          <div class="column" data-overflow="true" data-overflow-counter="true">
+            ${listHtml}
+          </div>
         </div>
       </div>
     </div>
