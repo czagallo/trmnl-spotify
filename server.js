@@ -1106,7 +1106,7 @@ function generateQuadrantMarkup(data, connection) {
     return `
       <div class="view view--quadrant">
         <div class="layout">
-          <div class="markdown" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 0 10px;">
+          <div class="markdown w--full" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 0 10px;">
             ${playStatusSvg(data.is_playing, 20)}
             <div style="font-size: 16px; font-weight: 700; margin-top: 6px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 100%;">${truncate(data.track, 18)}</div>
             <div style="font-size: 12px; opacity: 0.6; margin-top: 2px;">${truncate(data.artist, 20)}</div>
@@ -1128,7 +1128,7 @@ function generateQuadrantMarkup(data, connection) {
   return `
     <div class="view view--quadrant">
       <div class="layout">
-        <div class="markdown" style="display: flex; flex-direction: column; justify-content: flex-start; height: 100%; padding: 10px 14px;">
+        <div class="markdown w--full" style="display: flex; flex-direction: column; justify-content: flex-start; height: 100%; padding: 10px 14px;">
           ${listHtml}
         </div>
       </div>
@@ -1147,7 +1147,7 @@ function renderConnectPrompt(layout) {
     return `
       <div class="view ${viewClass}">
         <div class="layout">
-          <div class="markdown" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
+          <div class="markdown w--full" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
             ${musicNoteSvg(28)}
             <div style="font-size: 12px; opacity: 0.5; margin-top: 6px;">Connect Spotify</div>
           </div>
