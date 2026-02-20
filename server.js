@@ -875,32 +875,24 @@ function renderNowPlayingFull(data) {
 
   return `
     <div class="view view--full">
-      <div class="layout">
-        <div class="markdown" style="display: flex; flex-direction: row; align-items: center; height: 100%; padding: 20px 30px;">
-          <div style="flex: 0 0 180px; display: flex; align-items: center; justify-content: center;">
-            ${musicNoteSvg(140)}
+      <div class="layout layout--row layout--center">
+        <div style="flex: 0 0 180px; display: flex; align-items: center; justify-content: center;">
+          ${musicNoteSvg(140)}
+        </div>
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding-left: 30px; max-width: 70%;">
+          <div class="flex gap--small" style="margin-bottom: 12px;">
+            ${playStatusSvg(data.is_playing, 24)}
+            <span class="label label--small">${data.is_playing ? 'Now Playing' : 'Paused'}</span>
           </div>
-          <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding-left: 30px; max-width: 70%;">
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-              ${playStatusSvg(data.is_playing, 24)}
-              <span style="font-size: 16px; font-weight: 400; opacity: 0.6;">${data.is_playing ? 'Now Playing' : 'Paused'}</span>
-            </div>
-            <div style="font-size: 42px; font-weight: 700; line-height: 1.1; margin-bottom: 8px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-              ${truncate(data.track, 30)}
-            </div>
-            <div style="font-size: 26px; font-weight: 400; opacity: 0.7; margin-bottom: 6px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-              ${truncate(data.artist, 40)}
-            </div>
-            <div style="font-size: 18px; font-weight: 300; opacity: 0.5; margin-bottom: 20px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-              ${truncate(data.album, 45)}
-            </div>
-            <div style="width: 100%; background: #E5E5E5; height: 6px; border-radius: 3px; overflow: hidden;">
-              <div style="width: ${progressPct}%; background: black; height: 100%; border-radius: 3px;"></div>
-            </div>
-            <div style="display: flex; justify-content: space-between; font-size: 14px; opacity: 0.5; margin-top: 6px;">
-              <span>${progressTime}</span>
-              <span>${totalTime}</span>
-            </div>
+          <span class="value">${truncate(data.track, 30)}</span>
+          <span class="description">${truncate(data.artist, 40)}</span>
+          <span class="label label--small">${truncate(data.album, 45)}</span>
+          <div style="width: 100%; background: #E5E5E5; height: 6px; border-radius: 3px; overflow: hidden; margin-top: 16px;">
+            <div style="width: ${progressPct}%; background: black; height: 100%; border-radius: 3px;"></div>
+          </div>
+          <div class="flex" style="justify-content: space-between; margin-top: 6px;">
+            <span class="label label--small">${progressTime}</span>
+            <span class="label label--small">${totalTime}</span>
           </div>
         </div>
       </div>
@@ -913,26 +905,29 @@ function renderNowPlayingFull(data) {
 
 function renderRecentlyPlayedFull(data) {
   const subtitle = data.fallback ? 'Nothing playing right now' : 'Recently Played';
-  const trackList = (data.tracks || []).slice(0, 5).map(t => `
-    <div style="display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px solid #E5E5E5;">
-      <div style="flex: 1; overflow: hidden;">
-        <div style="font-size: 26px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;">${truncate(t.track, 30)}</div>
-        <div style="font-size: 17px; font-weight: 400; opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;">${truncate(t.artist, 40)}</div>
-      </div>
-      ${t.played_at ? `<div style="font-size: 15px; font-weight: 400; opacity: 0.35; white-space: nowrap; padding-left: 14px;">${timeAgo(t.played_at)}</div>` : ''}
-    </div>
-  `).join('');
+  const trackList = (data.tracks || []).map(t => {
+    const timeLabel = t.played_at ? `<span class="label label--small label--underline">${timeAgo(t.played_at)}</span>` : '';
+    return `<div class="item">
+        <div class="meta"></div>
+        <div class="content">
+          <span class="title title--small">${truncate(t.track, 30)}</span>
+          <div class="flex gap--xsmall">
+            <span class="label label--small">${truncate(t.artist, 40)}</span>
+            ${timeLabel}
+          </div>
+        </div>
+      </div>`;
+  }).join('');
 
   return `
     <div class="view view--full">
-      <div class="layout">
-        <div class="markdown" style="padding: 20px 30px; height: 100%; display: flex; flex-direction: column;">
-          <div style="font-size: 18px; font-weight: 400; opacity: 0.5; margin-bottom: 16px;">${subtitle}</div>
-          <div style="flex: 1; overflow: hidden;">
-            ${trackList || '<div style="font-size: 24px; opacity: 0.5; margin-top: 40px; text-align: center;">No recent tracks found.</div>'}
-          </div>
+      <div class="layout layout--col layout--stretch">
+        <span class="label label--small">${subtitle}</span>
+        <div class="w--full" data-overflow="true">
+          ${trackList || '<span class="description">No recent tracks found.</span>'}
         </div>
       </div>
+      <div class="title_bar"><span class="title">Spotify</span></div>
     </div>
   `.trim();
 }
@@ -940,25 +935,23 @@ function renderRecentlyPlayedFull(data) {
 function renderTopTracksFull(data, connection) {
   const range = timeRangeLabel(connection?.settings?.timeRange);
   const trackList = (data.tracks || []).map(t => `
-    <div style="display: flex; align-items: baseline; padding: 12px 0; border-bottom: 1px solid #E5E5E5; gap: 16px;">
-      <div style="font-size: 36px; font-weight: 700; opacity: 0.25; min-width: 44px; text-align: right; line-height: 1;">${t.rank}</div>
-      <div style="flex: 1; overflow: hidden;">
-        <div style="font-size: 28px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;">${truncate(t.track, 30)}</div>
-        <div style="font-size: 18px; font-weight: 400; opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;">${truncate(t.artist, 40)}</div>
-      </div>
-    </div>
-  `).join('');
+      <div class="item">
+        <div class="meta"><span class="index">${t.rank}</span></div>
+        <div class="content">
+          <span class="title title--small">${truncate(t.track, 30)}</span>
+          <span class="label label--small">${truncate(t.artist, 40)}</span>
+        </div>
+      </div>`).join('');
 
   return `
     <div class="view view--full">
-      <div class="layout">
-        <div class="markdown" style="padding: 20px 30px; height: 100%; display: flex; flex-direction: column;">
-          <div style="font-size: 18px; font-weight: 400; opacity: 0.5; margin-bottom: 16px;">Top Tracks &middot; ${range}</div>
-          <div style="flex: 1; overflow: hidden;">
-            ${trackList || '<div style="font-size: 24px; opacity: 0.5; margin-top: 40px; text-align: center;">No data yet. Keep listening!</div>'}
-          </div>
+      <div class="layout layout--col layout--stretch">
+        <span class="label label--small">Top Tracks &middot; ${range}</span>
+        <div class="w--full" data-overflow="true">
+          ${trackList || '<span class="description">No data yet. Keep listening!</span>'}
         </div>
       </div>
+      <div class="title_bar"><span class="title">Spotify</span></div>
     </div>
   `.trim();
 }
@@ -966,25 +959,23 @@ function renderTopTracksFull(data, connection) {
 function renderTopArtistsFull(data, connection) {
   const range = timeRangeLabel(connection?.settings?.timeRange);
   const artistList = (data.artists || []).map(a => `
-    <div style="display: flex; align-items: baseline; padding: 14px 0; border-bottom: 1px solid #E5E5E5; gap: 16px;">
-      <div style="font-size: 36px; font-weight: 700; opacity: 0.25; min-width: 44px; text-align: right; line-height: 1;">${a.rank}</div>
-      <div style="flex: 1; overflow: hidden;">
-        <div style="font-size: 30px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;">${truncate(a.name, 30)}</div>
-        ${a.genres ? `<div style="font-size: 16px; font-weight: 400; opacity: 0.45; margin-top: 2px;">${a.genres}</div>` : ''}
-      </div>
-    </div>
-  `).join('');
+      <div class="item">
+        <div class="meta"><span class="index">${a.rank}</span></div>
+        <div class="content">
+          <span class="title title--small">${truncate(a.name, 30)}</span>
+          ${a.genres ? `<span class="label label--small">${a.genres}</span>` : ''}
+        </div>
+      </div>`).join('');
 
   return `
     <div class="view view--full">
-      <div class="layout">
-        <div class="markdown" style="padding: 20px 30px; height: 100%; display: flex; flex-direction: column;">
-          <div style="font-size: 18px; font-weight: 400; opacity: 0.5; margin-bottom: 16px;">Top Artists &middot; ${range}</div>
-          <div style="flex: 1; overflow: hidden;">
-            ${artistList || '<div style="font-size: 24px; opacity: 0.5; margin-top: 40px; text-align: center;">No data yet. Keep listening!</div>'}
-          </div>
+      <div class="layout layout--col layout--stretch">
+        <span class="label label--small">Top Artists &middot; ${range}</span>
+        <div class="w--full" data-overflow="true">
+          ${artistList || '<span class="description">No data yet. Keep listening!</span>'}
         </div>
       </div>
+      <div class="title_bar"><span class="title">Spotify</span></div>
     </div>
   `.trim();
 }
@@ -996,16 +987,18 @@ function generateHalfVerticalMarkup(data, connection) {
   }
 
   if (data.mode === 'now_playing') {
+    const progressPct = data.duration_ms > 0
+      ? Math.round((data.progress_ms / data.duration_ms) * 100)
+      : 0;
+
     return `
       <div class="view view--half_vertical">
-        <div class="layout layout--col layout--stretch">
-          <div class="markdown w--full" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 0 20px;">
-            ${playStatusSvg(data.is_playing, 28)}
-            <div style="font-size: 30px; font-weight: 700; margin-top: 12px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 100%;">${truncate(data.track, 22)}</div>
-            <div style="font-size: 20px; opacity: 0.6; margin-top: 6px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 100%;">${truncate(data.artist, 28)}</div>
-            <div style="width: 80%; background: #E5E5E5; height: 4px; border-radius: 2px; margin-top: 16px; overflow: hidden;">
-              <div style="width: ${data.duration_ms > 0 ? Math.round((data.progress_ms / data.duration_ms) * 100) : 0}%; background: black; height: 100%;"></div>
-            </div>
+        <div class="layout layout--col layout--center">
+          ${playStatusSvg(data.is_playing, 28)}
+          <span class="title">${truncate(data.track, 22)}</span>
+          <span class="description">${truncate(data.artist, 28)}</span>
+          <div class="w--full" style="max-width: 80%; background: #E5E5E5; height: 4px; border-radius: 2px; margin-top: 12px; overflow: hidden;">
+            <div style="width: ${progressPct}%; background: black; height: 100%;"></div>
           </div>
         </div>
         <div class="title_bar"><span class="title">Spotify</span></div>
@@ -1013,18 +1006,18 @@ function generateHalfVerticalMarkup(data, connection) {
     `.trim();
   }
 
-  // For list modes, show items with rank numbers
+  // For list modes, use TRMNL item component with overflow
   const items = data.tracks || data.artists || [];
-  const listHtml = items.slice(0, 5).map((item, i) => {
+  const listHtml = items.map((item, i) => {
     const name = item.track || item.name;
     const sub = item.artist || item.genres || '';
-    return `<div style="display: flex; align-items: baseline; gap: 10px; padding: 6px 0; border-bottom: 1px solid #E5E5E5;">
-      <div style="font-size: 24px; font-weight: 700; opacity: 0.25; min-width: 28px; text-align: right; line-height: 1;">${i + 1}</div>
-      <div style="flex: 1; overflow: hidden;">
-        <div style="font-size: 20px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;">${truncate(name, 18)}</div>
-        <div style="font-size: 13px; font-weight: 400; opacity: 0.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${truncate(sub, 22)}</div>
-      </div>
-    </div>`;
+    return `<div class="item">
+        <div class="meta"><span class="index">${i + 1}</span></div>
+        <div class="content">
+          <span class="title title--small">${truncate(name, 22)}</span>
+          <span class="label label--small">${truncate(sub, 28)}</span>
+        </div>
+      </div>`;
   }).join('');
 
   const modeLabel = data.mode === 'top_tracks' ? 'Top Tracks'
@@ -1034,11 +1027,9 @@ function generateHalfVerticalMarkup(data, connection) {
   return `
     <div class="view view--half_vertical">
       <div class="layout layout--col layout--stretch">
-        <div class="markdown w--full" style="display: flex; flex-direction: column; height: 100%; padding: 10px 15px;">
-          <div style="font-size: 13px; font-weight: 400; opacity: 0.4; margin-bottom: 8px;">${modeLabel}</div>
-          <div style="flex: 1; overflow: hidden;">
-            ${listHtml}
-          </div>
+        <span class="label label--small">${modeLabel}</span>
+        <div class="w--full" data-overflow="true">
+          ${listHtml}
         </div>
       </div>
       <div class="title_bar"><span class="title">Spotify</span></div>
@@ -1055,13 +1046,11 @@ function generateHalfHorizontalMarkup(data, connection) {
   if (data.mode === 'now_playing') {
     return `
       <div class="view view--half_horizontal">
-        <div class="layout layout--row layout--stretch">
-          <div class="markdown w--full" style="display: flex; align-items: center; justify-content: center; height: 100%; gap: 20px; padding: 0 20px;">
-            ${musicNoteSvg(60)}
-            <div style="overflow: hidden;">
-              <div style="font-size: 28px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${truncate(data.track, 25)}</div>
-              <div style="font-size: 18px; opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${truncate(data.artist, 30)}</div>
-            </div>
+        <div class="layout layout--row layout--center">
+          ${musicNoteSvg(60)}
+          <div>
+            <span class="title">${truncate(data.track, 25)}</span>
+            <span class="description">${truncate(data.artist, 30)}</span>
           </div>
         </div>
         <div class="title_bar"><span class="title">Spotify</span></div>
@@ -1069,23 +1058,30 @@ function generateHalfHorizontalMarkup(data, connection) {
     `.trim();
   }
 
-  // For list modes, show top 3 side by side
+  // For list modes, use TRMNL item component with overflow
   const items = data.tracks || data.artists || [];
-  const columnsHtml = items.slice(0, 3).map((item, i) => {
+  const listHtml = items.map((item, i) => {
     const name = item.track || item.name;
     const sub = item.artist || item.genres || '';
-    return `<div style="flex: 1; overflow: hidden; text-align: center; padding: 0 8px; ${i < 2 ? 'border-right: 1px solid #E5E5E5;' : ''}">
-      <div style="font-size: 28px; font-weight: 700; opacity: 0.25; line-height: 1; margin-bottom: 6px;">${i + 1}</div>
-      <div style="font-size: 18px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;">${truncate(name, 20)}</div>
-      <div style="font-size: 13px; font-weight: 400; opacity: 0.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;">${truncate(sub, 22)}</div>
-    </div>`;
+    return `<div class="item">
+        <div class="meta"><span class="index">${i + 1}</span></div>
+        <div class="content">
+          <span class="title title--small">${truncate(name, 25)}</span>
+          <span class="label label--small">${truncate(sub, 30)}</span>
+        </div>
+      </div>`;
   }).join('');
+
+  const modeLabel = data.mode === 'top_tracks' ? 'Top Tracks'
+    : data.mode === 'top_artists' ? 'Top Artists'
+    : 'Recent';
 
   return `
     <div class="view view--half_horizontal">
-      <div class="layout layout--row layout--stretch">
-        <div class="markdown w--full" style="display: flex; align-items: center; justify-content: center; height: 100%; padding: 0 15px; gap: 0;">
-          ${columnsHtml}
+      <div class="layout layout--col layout--stretch">
+        <span class="label label--small">${modeLabel}</span>
+        <div class="w--full" data-overflow="true">
+          ${listHtml}
         </div>
       </div>
       <div class="title_bar"><span class="title">Spotify</span></div>
@@ -1102,30 +1098,30 @@ function generateQuadrantMarkup(data, connection) {
   if (data.mode === 'now_playing') {
     return `
       <div class="view view--quadrant">
-        <div class="layout">
-          <div class="markdown w--full" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 0 10px;">
-            ${playStatusSvg(data.is_playing, 20)}
-            <div style="font-size: 16px; font-weight: 700; margin-top: 6px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 100%;">${truncate(data.track, 18)}</div>
-            <div style="font-size: 12px; opacity: 0.6; margin-top: 2px;">${truncate(data.artist, 20)}</div>
-          </div>
+        <div class="layout layout--col layout--center">
+          ${playStatusSvg(data.is_playing, 20)}
+          <span class="title title--small">${truncate(data.track, 18)}</span>
+          <span class="label label--small">${truncate(data.artist, 20)}</span>
         </div>
       </div>
     `.trim();
   }
 
   const items = data.tracks || data.artists || [];
-  const listHtml = items.slice(0, 3).map((item, i) => {
+  const listHtml = items.map((item, i) => {
     const name = item.track || item.name;
-    return `<div style="display: flex; align-items: baseline; gap: 6px; padding: 3px 0;">
-      <div style="font-size: 14px; font-weight: 700; opacity: 0.3; min-width: 16px; text-align: right; line-height: 1;">${i + 1}</div>
-      <div style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;">${truncate(name, 22)}</div>
-    </div>`;
+    return `<div class="item">
+        <div class="meta"><span class="index">${i + 1}</span></div>
+        <div class="content">
+          <span class="title title--small">${truncate(name, 22)}</span>
+        </div>
+      </div>`;
   }).join('');
 
   return `
     <div class="view view--quadrant">
-      <div class="layout">
-        <div class="markdown w--full" style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding: 8px 12px;">
+      <div class="layout layout--col layout--stretch">
+        <div class="w--full" data-overflow="true">
           ${listHtml}
         </div>
       </div>
@@ -1143,24 +1139,22 @@ function renderConnectPrompt(layout) {
   if (layout === 'quadrant') {
     return `
       <div class="view ${viewClass}">
-        <div class="layout">
-          <div class="markdown w--full" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
-            ${musicNoteSvg(28)}
-            <div style="font-size: 12px; opacity: 0.5; margin-top: 6px;">Connect Spotify</div>
-          </div>
+        <div class="layout layout--col layout--center">
+          ${musicNoteSvg(28)}
+          <span class="label label--small">Connect Spotify</span>
         </div>
       </div>
     `.trim();
   }
 
+  const iconSize = layout === 'full' ? 80 : 48;
+
   return `
     <div class="view ${viewClass}">
-      <div class="layout">
-        <div class="markdown" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 20px;">
-          ${musicNoteSvg(layout === 'full' ? 80 : 48)}
-          <div style="font-size: ${layout === 'full' ? '28' : '20'}px; font-weight: 600; margin-top: 16px;">Connect Spotify</div>
-          <div style="font-size: ${layout === 'full' ? '18' : '14'}px; opacity: 0.5; margin-top: 8px;">Open plugin settings to link your account</div>
-        </div>
+      <div class="layout layout--col layout--center">
+        ${musicNoteSvg(iconSize)}
+        <span class="title">Connect Spotify</span>
+        <span class="description">Open plugin settings to link your account</span>
       </div>
       <div class="title_bar"><span class="title">Spotify</span></div>
     </div>
@@ -1172,11 +1166,9 @@ function renderError(layout, message) {
 
   return `
     <div class="view ${viewClass}">
-      <div class="layout">
-        <div class="markdown" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 20px;">
-          ${musicNoteSvg(48)}
-          <div style="font-size: 20px; opacity: 0.5; margin-top: 16px;">${message}</div>
-        </div>
+      <div class="layout layout--col layout--center">
+        ${musicNoteSvg(48)}
+        <span class="description">${message}</span>
       </div>
       <div class="title_bar"><span class="title">Spotify</span></div>
     </div>
