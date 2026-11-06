@@ -535,7 +535,8 @@ app.post('/webhooks/install-success', (req, res) => {
 // Uninstallation webhook
 app.post('/webhooks/uninstall', (req, res) => {
   console.log('Uninstall webhook received:', JSON.stringify(req.body, null, 2));
-  const user_uuid = req.body.user?.uuid || req.body.uuid;
+  // TRMNL has sent {user: {uuid}}, {user_uuid} and {uuid} payloads
+  const user_uuid = req.body.user?.uuid || req.body.user_uuid || req.body.uuid;
   console.log('Uninstalling plugin for user:', user_uuid);
 
   if (user_uuid) {
