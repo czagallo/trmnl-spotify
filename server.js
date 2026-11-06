@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const https = require('https');
 const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3004;
 
@@ -12,13 +14,48 @@ const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
 
-// In-memory storage for plugin connections
-// In production, use a database (PostgreSQL, MongoDB, etc.)
-const pluginConnections = new Map();
+// Plugin connections, persisted to a JSON file so restarts don't log users out
+const DATA_FILE = process.env.DATA_FILE || path.join(__dirname, 'data', 'connections.json');
+const pluginConnections = loadConnections();
 
 // Cache for Spotify API responses (avoid hitting rate limits)
 const spotifyCache = new Map();
 const CACHE_DURATION = 60 * 1000; // 60 seconds
+
+// Timeout for outgoing HTTPS requests (TRMNL gives up on slow markup responses)
+const REQUEST_TIMEOUT = 8 * 1000; // 8 seconds
+
+// ============================================================================
+// PERSISTENCE
+// ============================================================================
+
+// Load connections from disk on startup
+function loadConnections() {
+  try {
+    const raw = fs.readFileSync(DATA_FILE, 'utf8');
+    const entries = Object.entries(JSON.parse(raw));
+    console.log(`Loaded ${entries.length} connection(s) from ${DATA_FILE}`);
+    return new Map(entries);
+  } catch (error) {
+    if (error.code !== 'ENOENT') {
+      console.error(`Failed to load connections from ${DATA_FILE}:`, error.message);
+    }
+    return new Map();
+  }
+}
+
+// Write connections to disk atomically (temp file + rename), readable by owner only
+function saveConnections() {
+  try {
+    fs.mkdirSync(path.dirname(DATA_FILE), { recursive: true });
+    const tmpFile = `${DATA_FILE}.tmp`;
+    const json = JSON.stringify(Object.fromEntries(pluginConnections), null, 2);
+    fs.writeFileSync(tmpFile, json, { mode: 0o600 });
+    fs.renameSync(tmpFile, DATA_FILE);
+  } catch (error) {
+    console.error(`Failed to save connections to ${DATA_FILE}:`, error.message);
+  }
+}
 
 // Middleware
 app.use(express.json());
@@ -42,6 +79,10 @@ function httpsRequest(options, postData) {
           resolve({ statusCode: res.statusCode, body: data });
         }
       });
+    });
+
+    req.setTimeout(REQUEST_TIMEOUT, () => {
+      req.destroy(new Error(`Request to ${options.hostname}${options.path} timed out after ${REQUEST_TIMEOUT}ms`));
     });
 
     req.on('error', (error) => { reject(error); });
@@ -141,6 +182,7 @@ async function getValidSpotifyToken(uuid) {
         expires_at: tokens.expires_at
       };
       pluginConnections.set(uuid, connection);
+      saveConnections();
     } catch (error) {
       console.error(`Failed to refresh Spotify token for ${uuid}:`, error.message);
       return null;
@@ -485,6 +527,7 @@ app.post('/webhooks/install-success', (req, res) => {
       timeRange: 'short_term'
     }
   });
+  saveConnections();
 
   res.status(200).json({ success: true });
 });
@@ -497,6 +540,7 @@ app.post('/webhooks/uninstall', (req, res) => {
 
   if (user_uuid) {
     pluginConnections.delete(user_uuid);
+    saveConnections();
     // Also clear any cached data
     for (const key of spotifyCache.keys()) {
       if (key.startsWith(user_uuid)) {
@@ -532,6 +576,7 @@ app.get('/spotify/authorize', (req, res) => {
   if (connection) {
     connection.oauth_state = state;
     pluginConnections.set(uuid, connection);
+    saveConnections();
   }
 
   const scopes = 'user-read-currently-playing user-read-recently-played user-top-read';
@@ -588,6 +633,7 @@ app.get('/spotify/callback', async (req, res) => {
     };
 
     pluginConnections.set(uuid, connection);
+    saveConnections();
     console.log('Spotify connected successfully for user:', uuid);
 
     // Redirect back to manage page with success
@@ -610,6 +656,7 @@ app.post('/spotify/disconnect', (req, res) => {
   if (connection) {
     connection.spotify = null;
     pluginConnections.set(uuid, connection);
+    saveConnections();
 
     // Clear cached data
     for (const key of spotifyCache.keys()) {
@@ -805,6 +852,7 @@ app.post('/manage/save', (req, res) => {
       timeRange: timeRange || 'short_term'
     };
     pluginConnections.set(uuid, connection);
+    saveConnections();
   }
 
   res.redirect(`/manage?uuid=${uuid}&saved=true`);
