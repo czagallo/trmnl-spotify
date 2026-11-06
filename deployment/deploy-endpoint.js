@@ -5,13 +5,14 @@
  * Runs as a separate service, called by n8n on Codeberg push events.
  *
  * Usage: node deploy-endpoint.js
- * Then configure n8n to POST to http://localhost:3005/deploy
+ * Then configure n8n to POST to http://localhost:3008/deploy (override with DEPLOY_PORT)
  */
 
 const http = require('http');
 const { exec } = require('child_process');
 
-const PORT = 3005;
+// 3000-3007 are taken by other services on the server (3005: timebox deploy, 3007: spotify-private deploy)
+const PORT = process.env.DEPLOY_PORT || 3008;
 const DEPLOY_SCRIPT = '/home/antfarm/deployments/trmnl-spotify/deployment/deploy.sh';
 
 // Add a secret token for security
