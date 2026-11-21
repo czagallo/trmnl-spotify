@@ -105,7 +105,11 @@ curl -X POST http://localhost:3004/markup \
 
 ## Deployment
 
-See the `deployment/` directory for systemd service files, nginx config, and auto-deployment scripts.
+Pushes to `main` are tested (`npm test` starts the server and checks `/health`) and scanned for vulnerable dependencies and committed secrets (Trivy), then
+deployed by GitHub Actions (`.github/workflows/deploy.yml`), which runs `deployment/deploy.sh` on the server. The
+server connection comes from repository secrets.
+
+The systemd unit and nginx config are in `deployment/`.
 
 ## License
 
