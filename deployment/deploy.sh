@@ -23,6 +23,10 @@ main() {
 
   npm ci --omit=dev --no-audit --no-fund --loglevel=error
 
+  # data/ holds users' Spotify tokens (connections.json): git reset leaves it alone (it is gitignored and there is
+  # no git clean); keep it owner-only.
+  mkdir -p -m 700 data
+  chmod 700 data
   sudo -n systemctl restart "$SERVICE"
 
   port=$(grep -E '^PORT=' .env 2>/dev/null | cut -d= -f2 || true)

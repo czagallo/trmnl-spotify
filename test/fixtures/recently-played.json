@@ -1,0 +1,341 @@
+{
+ "href": "x",
+ "limit": 10,
+ "next": null,
+ "cursors": {
+  "after": "1",
+  "before": "0"
+ },
+ "items": [
+  {
+   "track": {
+    "album": {
+     "album_type": "album",
+     "name": "Album \"quoted\" & <b>bold</b>",
+     "images": [
+      {
+       "url": "https://i.scdn.co/image/x",
+       "height": 640,
+       "width": 640
+      }
+     ],
+     "id": "alb0"
+    },
+    "artists": [
+     {
+      "name": "Test {% raw %} Artist",
+      "id": "art0_0",
+      "type": "artist"
+     }
+    ],
+    "duration_ms": 180000,
+    "explicit": false,
+    "id": "trk0",
+    "name": "<3 & {{x}}",
+    "popularity": 70,
+    "type": "track",
+    "uri": "spotify:track:trk0"
+   },
+   "played_at": "2026-11-21T11:58:00.000Z",
+   "context": null
+  },
+  {
+   "track": {
+    "album": {
+     "album_type": "album",
+     "name": "A Night At The Opera (2011 Remaster)",
+     "images": [
+      {
+       "url": "https://i.scdn.co/image/x",
+       "height": 640,
+       "width": 640
+      }
+     ],
+     "id": "alb1"
+    },
+    "artists": [
+     {
+      "name": "Queen",
+      "id": "art1_0",
+      "type": "artist"
+     }
+    ],
+    "duration_ms": 197000,
+    "explicit": false,
+    "id": "trk1",
+    "name": "Bohemian Rhapsody - Remastered 2011",
+    "popularity": 70,
+    "type": "track",
+    "uri": "spotify:track:trk1"
+   },
+   "played_at": "2026-11-21T11:51:00.000Z",
+   "context": null
+  },
+  {
+   "track": {
+    "album": {
+     "album_type": "album",
+     "name": "An Album Title That Is Also Far Too Long For Any Small E-Ink Screen",
+     "images": [
+      {
+       "url": "https://i.scdn.co/image/x",
+       "height": 640,
+       "width": 640
+      }
+     ],
+     "id": "alb2"
+    },
+    "artists": [
+     {
+      "name": "The Very Long Band Name Orchestra & Friends",
+      "id": "art2_0",
+      "type": "artist"
+     },
+     {
+      "name": "Another Featured Artist",
+      "id": "art2_1",
+      "type": "artist"
+     }
+    ],
+    "duration_ms": 214000,
+    "explicit": false,
+    "id": "trk2",
+    "name": "Pneumonoultramicroscopicsilicovolcanoconiosis and Other Extremely Long Song Titles That Never Seem to End",
+    "popularity": 70,
+    "type": "track",
+    "uri": "spotify:track:trk2"
+   },
+   "played_at": "2026-11-21T11:36:00.000Z",
+   "context": null
+  },
+  {
+   "track": {
+    "album": {
+     "album_type": "album",
+     "name": "Post",
+     "images": [
+      {
+       "url": "https://i.scdn.co/image/x",
+       "height": 640,
+       "width": 640
+      }
+     ],
+     "id": "alb3"
+    },
+    "artists": [
+     {
+      "name": "Björk",
+      "id": "art3_0",
+      "type": "artist"
+     }
+    ],
+    "duration_ms": 231000,
+    "explicit": false,
+    "id": "trk3",
+    "name": "Hyperballad",
+    "popularity": 70,
+    "type": "track",
+    "uri": "spotify:track:trk3"
+   },
+   "played_at": "2026-11-21T11:19:00.000Z",
+   "context": null
+  },
+  {
+   "track": {
+    "album": {
+     "album_type": "album",
+     "name": "After Hours",
+     "images": [
+      {
+       "url": "https://i.scdn.co/image/x",
+       "height": 640,
+       "width": 640
+      }
+     ],
+     "id": "alb4"
+    },
+    "artists": [
+     {
+      "name": "The Weeknd",
+      "id": "art4_0",
+      "type": "artist"
+     }
+    ],
+    "duration_ms": 248000,
+    "explicit": false,
+    "id": "trk4",
+    "name": "Blinding Lights",
+    "popularity": 70,
+    "type": "track",
+    "uri": "spotify:track:trk4"
+   },
+   "played_at": "2026-11-21T10:45:00.000Z",
+   "context": null
+  },
+  {
+   "track": {
+    "album": {
+     "album_type": "album",
+     "name": "Ágætis byrjun",
+     "images": [
+      {
+       "url": "https://i.scdn.co/image/x",
+       "height": 640,
+       "width": 640
+      }
+     ],
+     "id": "alb5"
+    },
+    "artists": [
+     {
+      "name": "Sigur Rós",
+      "id": "art5_0",
+      "type": "artist"
+     },
+     {
+      "name": "Jónsi",
+      "id": "art5_1",
+      "type": "artist"
+     }
+    ],
+    "duration_ms": 265000,
+    "explicit": false,
+    "id": "trk5",
+    "name": "C'est la vie (Ünïcødé)",
+    "popularity": 70,
+    "type": "track",
+    "uri": "spotify:track:trk5"
+   },
+   "played_at": "2026-11-21T09:50:00.000Z",
+   "context": null
+  },
+  {
+   "track": {
+    "album": {
+     "album_type": "album",
+     "name": "Conditions",
+     "images": [
+      {
+       "url": "https://i.scdn.co/image/x",
+       "height": 640,
+       "width": 640
+      }
+     ],
+     "id": "alb6"
+    },
+    "artists": [
+     {
+      "name": "The Temper Trap",
+      "id": "art6_0",
+      "type": "artist"
+     }
+    ],
+    "duration_ms": 282000,
+    "explicit": false,
+    "id": "trk6",
+    "name": "Sweet Disposition",
+    "popularity": 70,
+    "type": "track",
+    "uri": "spotify:track:trk6"
+   },
+   "played_at": "2026-11-21T08:40:00.000Z",
+   "context": null
+  },
+  {
+   "track": {
+    "album": {
+     "album_type": "album",
+     "name": "Hurry Up, We're Dreaming",
+     "images": [
+      {
+       "url": "https://i.scdn.co/image/x",
+       "height": 640,
+       "width": 640
+      }
+     ],
+     "id": "alb7"
+    },
+    "artists": [
+     {
+      "name": "M83",
+      "id": "art7_0",
+      "type": "artist"
+     }
+    ],
+    "duration_ms": 299000,
+    "explicit": false,
+    "id": "trk7",
+    "name": "Midnight City",
+    "popularity": 70,
+    "type": "track",
+    "uri": "spotify:track:trk7"
+   },
+   "played_at": "2026-11-21T06:40:00.000Z",
+   "context": null
+  },
+  {
+   "track": {
+    "album": {
+     "album_type": "album",
+     "name": "The Age of Consent",
+     "images": [
+      {
+       "url": "https://i.scdn.co/image/x",
+       "height": 640,
+       "width": 640
+      }
+     ],
+     "id": "alb8"
+    },
+    "artists": [
+     {
+      "name": "Bronski Beat",
+      "id": "art8_0",
+      "type": "artist"
+     }
+    ],
+    "duration_ms": 316000,
+    "explicit": false,
+    "id": "trk8",
+    "name": "Smalltown Boy",
+    "popularity": 70,
+    "type": "track",
+    "uri": "spotify:track:trk8"
+   },
+   "played_at": "2026-11-20T11:00:00.000Z",
+   "context": null
+  },
+  {
+   "track": {
+    "album": {
+     "album_type": "album",
+     "name": "(What's The Story) Morning Glory?",
+     "images": [
+      {
+       "url": "https://i.scdn.co/image/x",
+       "height": 640,
+       "width": 640
+      }
+     ],
+     "id": "alb9"
+    },
+    "artists": [
+     {
+      "name": "Oasis",
+      "id": "art9_0",
+      "type": "artist"
+     }
+    ],
+    "duration_ms": 333000,
+    "explicit": false,
+    "id": "trk9",
+    "name": "Wonderwall - Remastered",
+    "popularity": 70,
+    "type": "track",
+    "uri": "spotify:track:trk9"
+   },
+   "played_at": "2026-11-19T10:00:00.000Z",
+   "context": null
+  }
+ ]
+}

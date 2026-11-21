@@ -1,0 +1,45 @@
+{
+ "timestamp": 1795262400000,
+ "context": null,
+ "progress_ms": 83000,
+ "is_playing": true,
+ "currently_playing_type": "track",
+ "actions": {
+  "disallows": {
+   "resuming": true
+  }
+ },
+ "item": {
+  "album": {
+   "album_type": "album",
+   "name": "An Album Title That Is Also Far Too Long For Any Small E-Ink Screen",
+   "images": [
+    {
+     "url": "https://i.scdn.co/image/x",
+     "height": 640,
+     "width": 640
+    }
+   ],
+   "id": "alb2"
+  },
+  "artists": [
+   {
+    "name": "The Very Long Band Name Orchestra & Friends",
+    "id": "art2_0",
+    "type": "artist"
+   },
+   {
+    "name": "Another Featured Artist",
+    "id": "art2_1",
+    "type": "artist"
+   }
+  ],
+  "duration_ms": 214000,
+  "explicit": false,
+  "id": "trk2",
+  "name": "Pneumonoultramicroscopicsilicovolcanoconiosis and Other Extremely Long Song Titles That Never Seem to End",
+  "popularity": 70,
+  "type": "track",
+  "uri": "spotify:track:trk2"
+ }
+}

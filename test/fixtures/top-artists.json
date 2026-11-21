@@ -1,0 +1,155 @@
+{
+ "href": "x",
+ "limit": 10,
+ "offset": 0,
+ "total": 50,
+ "next": null,
+ "previous": null,
+ "items": [
+  {
+   "name": "<3 & {{x}}",
+   "genres": [
+    "k-pop",
+    "{% liquid %}"
+   ],
+   "id": "a0",
+   "popularity": 80,
+   "type": "artist",
+   "followers": {
+    "href": null,
+    "total": 1000
+   },
+   "images": []
+  },
+  {
+   "name": "Radiohead",
+   "genres": [
+    "art rock",
+    "alternative rock"
+   ],
+   "id": "a1",
+   "popularity": 80,
+   "type": "artist",
+   "followers": {
+    "href": null,
+    "total": 1001
+   },
+   "images": []
+  },
+  {
+   "name": "The Very Long Band Name Orchestra & Friends of the Extended Universe",
+   "genres": [
+    "progressive symphonic post-rock",
+    "chamber pop"
+   ],
+   "id": "a2",
+   "popularity": 80,
+   "type": "artist",
+   "followers": {
+    "href": null,
+    "total": 1002
+   },
+   "images": []
+  },
+  {
+   "name": "Björk",
+   "genres": [
+    "art pop",
+    "icelandic electronic"
+   ],
+   "id": "a3",
+   "popularity": 80,
+   "type": "artist",
+   "followers": {
+    "href": null,
+    "total": 1003
+   },
+   "images": []
+  },
+  {
+   "name": "Kendrick Lamar",
+   "genres": [
+    "hip hop",
+    "west coast rap"
+   ],
+   "id": "a4",
+   "popularity": 80,
+   "type": "artist",
+   "followers": {
+    "href": null,
+    "total": 1004
+   },
+   "images": []
+  },
+  {
+   "name": "Sigur Rós",
+   "genres": [
+    "post-rock"
+   ],
+   "id": "a5",
+   "popularity": 80,
+   "type": "artist",
+   "followers": {
+    "href": null,
+    "total": 1005
+   },
+   "images": []
+  },
+  {
+   "name": "Daft Punk",
+   "genres": [
+    "french house",
+    "electro"
+   ],
+   "id": "a6",
+   "popularity": 80,
+   "type": "artist",
+   "followers": {
+    "href": null,
+    "total": 1006
+   },
+   "images": []
+  },
+  {
+   "name": "Massive Attack",
+   "genres": [
+    "trip hop"
+   ],
+   "id": "a7",
+   "popularity": 80,
+   "type": "artist",
+   "followers": {
+    "href": null,
+    "total": 1007
+   },
+   "images": []
+  },
+  {
+   "name": "Fleetwood Mac",
+   "genres": [
+    "rock",
+    "soft rock"
+   ],
+   "id": "a8",
+   "popularity": 80,
+   "type": "artist",
+   "followers": {
+    "href": null,
+    "total": 1008
+   },
+   "images": []
+  },
+  {
+   "name": "Aphex Twin",
+   "genres": [],
+   "id": "a9",
+   "popularity": 80,
+   "type": "artist",
+   "followers": {
+    "href": null,
+    "total": 1009
+   },
+   "images": []
+  }
+ ]
+}

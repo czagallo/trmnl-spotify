@@ -1,0 +1,35 @@
+{
+ "timestamp": 1795262400000,
+ "context": null,
+ "progress_ms": 12000,
+ "is_playing": false,
+ "currently_playing_type": "track",
+ "item": {
+  "album": {
+   "album_type": "album",
+   "name": "Album \"quoted\" & <b>bold</b>",
+   "images": [
+    {
+     "url": "https://i.scdn.co/image/x",
+     "height": 640,
+     "width": 640
+    }
+   ],
+   "id": "alb0"
+  },
+  "artists": [
+   {
+    "name": "Test {% raw %} Artist",
+    "id": "art0_0",
+    "type": "artist"
+   }
+  ],
+  "duration_ms": 180000,
+  "explicit": false,
+  "id": "trk0",
+  "name": "<3 & {{x}}",
+  "popularity": 70,
+  "type": "track",
+  "uri": "spotify:track:trk0"
+ }
+}
